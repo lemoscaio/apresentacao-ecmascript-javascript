@@ -1,4 +1,4 @@
-# apresentacao-emcascript-javascript
+# apresentacao-ecmascript-javascript
 Repositório com arquivos da apresentação sobre tópicos do ECMAScript / Javascript
 
 Resolvi fazer a apresentação utilizando HTML com Bootstrap, tanto para treinar o uso de bootstrap, quanto para ter uma Proof of Concept dos temas abordados, rodando funções na hora da apresentação.
