@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+  <title>Apresentação Driven - Caio Lemos</title>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-light bg-light mb-5">
+      <div class="container-fluid  justify-content-center">
+        <a class="navbar-brand text-center fw-bolder" href="index.html">ECMAScript e JavaScript</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <div class="row gy-5 align-items-stretch">
+      <!-- Card 1 -->
+      <div class="col-lg-4 col-md-6 col-sm12">
+        <article class="card text-center h-100">
+          <div class="card-header">
+            Tópico 1
+          </div>
+          <div class="card-body  d-flex align-items-center justify-content-center">
+            <h5 class="card-title">O que é a ECMA e qual a diferença entre ECMAScript e JavaScript?</h5>
+          </div>
+          <div class="card-footer">
+            <a href="./pages/topico1.html" class="btn btn-primary">Ir para o tópico</a>
+          </div>
+        </article>
+      </div>
+      <!-- Card 2 -->
+      <div class="col-lg-4 col-md-6 col-sm12">
+        <article class="card text-center  h-100">
+          <div class="card-header">
+            Tópico 2
+          </div>
+          <div class="card-body  d-flex align-items-center justify-content-center pb-1">
+            <h5 class="card-title">Em 2015, com o lançamento do ES6, muitas mudanças começaram a acontecer no
+              JavaScript.
+              Quais foram as mudanças
+              abaixo?</h5>
+          </div>
+          <div class="accordion accordion-flush" id="accordion-subtopics-2">
+            <div class="accordion-item">
+              <p class="card-text accordion-header" id="flush-heading-topic-2"><button
+                  class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapse-topic-2" aria-expanded="false" aria-controls="flush-collapse-topic-2">
+                  Subtópicos
+                </button></p>
+              <ul class="list-group list-group-flush accordion-collapse collapse" id="flush-collapse-topic-2"
+                aria-labelledby="flush-heading-topic-2" data-bs-parent="#accordion-subtopics-2">
+                <li class="list-group-item">Default Parameters</li>
+                <li class="list-group-item">Template Strings</li>
+                <li class="list-group-item">Destructuring</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <a href="./pages/topico2.html" class="btn btn-primary">Ir para o tópico</a>
+          </div>
+        </article>
+      </div>
+      <!-- Card 3 -->
+      <div class="col-lg-4 col-md-6 col-sm12">
+        <article class="card text-center  h-100">
+          <div class="card-header">
+            Tópico 3
+          </div>
+          <div class="card-body d-flex align-items-center justify-content-center">
+            <h5 class="card-title">O que é strict mode?</h5>
+          </div>
+          <div class="card-footer">
+            <a href="./pages/topico3.html" class="btn btn-primary">Ir para o tópico</a>
+          </div>
+        </article>
+      </div>
+      <!-- Card 4 -->
+      <div class="col-lg-4 col-md-6 col-sm12">
+        <article class="card text-center  h-100">
+          <div class="card-header">
+            Tópico 4
+          </div>
+          <div class="card-body align-items-center">
+            <h5 class="card-title">O que é Hoisting</h5>
+          </div>
+          <div class="card-footer">
+            <a href="./pages/topico4.html" class="btn btn-primary">Ir para o tópico</a>
+          </div>
+        </article>
+      </div>
+      <!-- Card 5 -->
+      <div class="col-lg-4 col-md-6 col-sm12">
+        <article class="card text-center h-100">
+          <div class="card-header">
+            Tópico 5
+          </div>
+          <div class="card-body d-flex align-items-center justify-content-center">
+            <h5 class="card-title">Qual a diferença de <code>var</code>, <code>let</code> e <code>const</code>?</h5>
+          </div>
+          <div class="card-footer">
+            <a href="./pages/topico5.html" class="btn btn-primary">Ir para o tópico</a>
+          </div>
+        </article>
+      </div>
+      <!-- Card 6 -->
+      <div class="col-lg-4 col-md-6 col-sm12">
+        <article class="card text-center h-100">
+          <div class="card-header">
+            Tópico 6
+          </div>
+          <div class="card-body d-flex align-items-center justify-content-center">
+            <h5 class="card-title">Qual a diferença entre <code>for</code>, <code>forEach</code> e <code>for...
+                of</code> ?</h5>
+
+          </div>
+          <div class="card-footer">
+            <a href="./pages/topico6.html" class="btn btn-primary">Ir para o tópico</a>
+          </div>
+        </article>
+      </div>
+    </div>
+
+  </main>
+
+
+  <script src="index.js"></script>
+  <!-- Bootstrap Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Var x Let x Const</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-light bg-light mb-5">
+            <div class="container-fluid  justify-content-center">
+                <a class="navbar-brand text-center fw-bolder" href="index.html">ECMAScript e JavaScript</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="card mx-auto mb-5" style="max-width: 60rem">
+            <h3 class="card-header">Qual a diferença de <code>var</code>, <code>let</code> e <code>const</code></h3>
+            <div class="card-body">
+                <h5 class="card-title">O que acontece se declararmos uma variável sem "var", "let" ou "const"?</h5>
+                <p>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#variavelEscopoWindow" aria-expanded="false"
+                        aria-controls="variavelEscopoWindow">
+                        Resposta
+                    </button>
+                </p>
+                <div class="collapse" id="variavelEscopoWindow">
+                    <div class="card card-body">
+                        A variável é atribuída ao objeto "window", que representa a janela do browser.
+                        Portanto, se for declarada uma função:
+                        <code>
+                            <pre>
+function declaraNoWindow() {
+    apostoQueEhGlobal = "é claro que é global"
+}
+</pre></code>
+                        <button onclick="declaraNoWindow()" class="btn btn-primary mb-3">Declarar função</button>
+                        <button onclick="logarDeclaraNoWindow()" class="btn btn-primary mb-3">Chamar
+                            console.log()</button>
+                        <p class="card-text">PS: Ela também pode ser chamda com "window." na frente, pois ela faz parte
+                            do window.</p>
+                    </div>
+                </div>
+                <h5 class="card-title mt-3">Var</h5>
+                <p class="card-text">É um statement que declara uma variável.</p>
+                <p class="card-text">Essa variável tem escopo de função, ou seja, ela "morre" após o término de seu
+                    escopo.</p>
+                <p>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#declarando-var" aria-expanded="false" aria-controls="declarando-var">
+                        Declarando var
+                    </button>
+                </p>
+                <div class="collapse" id="declarando-var">
+                    <div class="card card-body">
+                        <p class="card-text">Se declarada fora da função, por conta do evento de <span
+                                class="fst-italic">Hoisting</span>, ela é elevada também ao Window.</p>
+                        <p class="card-text">Porém dentro de uma função, ela tem seu escopo reduzido.Veremos os exemplos
+                        </p>
+                        <code>
+                            <pre>
+v1 = 'Hello World';
+var v2 = 2;
+
+function f(){
+    v3 = true;
+    var v4 = v2+2;
+}
+
+f(); //Inicializa a função
+                        </pre></code>
+                        <button onclick="console.log(v1)" class="btn btn-primary mb-3">console.log(v1)</button>
+                        <button onclick="console.log(v2)" class="btn btn-primary mb-3">console.log(v2)</button>
+                        <button onclick="console.log(v3)" class="btn btn-primary mb-3">console.log(v3)</button>
+                        <button onclick="console.log(v4)" class="btn btn-primary mb-3">console.log(v4)</button>
+
+                        <p class="card-text">Porém, escopo de função ainda tem seus problemas:</p>
+                        <code>
+                            <pre>
+function problemao() {
+    var v5 = "até então, tudo ok"
+    console.log(v5)
+    if (2 + 2 === 4) {
+        var v6 = "será que ela vai ser impressa fora do IF?";
+        console.log(v6)
+    }
+    console.log(v6)
+}</pre></code>
+                        <button onclick="problemao()" class="btn btn-primary mb-3">problemao()</button>
+                    </div>
+                </div>
+                <h5 class="card-title">Let e Const</h5>
+                <p class="card-text">Essas variáveis possuem escopo de bloco, ou seja, "morrem" após seu bloco ser
+                    executado. Também sofrem consequências do efeito de Hoisting e vão parar no escopo com limite
+                    superior</p>
+                <p>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#declarando-let-const" aria-expanded="false"
+                        aria-controls="declarando-let-const">
+                        Declarando let e const
+                    </button>
+                </p>
+                <div class="collapse" id="declarando-let-const">
+                    <div class="card card-body">
+                        <p class="card-text">Veremos o último exemplo do var e o que acontece com let e const, por terem
+                            escopo de bloco:</p>
+                        <code>
+                            <pre>
+function semProblemao() {
+    let v7
+    v7 = "até então, tudo ok"
+    console.log(v7)
+    if (2 + 2 === 4) {
+        let v8 = "será que ela vai ser impressa fora do IF?";
+        console.log(v8)
+    }
+    console.log(v8)
+}</pre></code>
+                        <button onclick="semProblemao()" class="btn btn-primary mb-3">semProblemao()</button>
+                        <p class="card-text">Como imaginado, a variável let morre após o bloco terminar.</p>
+                        <P class="card-text">Mas e qual a diferença entre let e const?</P>
+                        <code>
+                            <pre>
+function vaiQuebrar() {
+    const v9
+    v9 = "até então, tudo ok"
+    console.log(v9)
+}</pre></code>
+                    <p class="card-text">Nem adianta colocar botão, porque ele nem sequer deixa criar a função. O const é uma variável que não pode ser reatribuída e, portanto, PRECISA que seja inicializada com um valor.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a class="btn btn-primary me-3 m-3" href="topico6.html" role="button">Próximo tópico</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/topico5.js"></script>
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

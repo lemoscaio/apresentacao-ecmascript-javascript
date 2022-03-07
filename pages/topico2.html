@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+
+    <title>Novidades do ES6</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-light bg-light mb-5">
+            <div class="container-fluid  justify-content-center">
+                <a class="navbar-brand text-center fw-bolder" href="index.html">ECMAScript e JavaScript</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="card mx-auto mb-5" style="max-width: 60rem">
+            <h3 class="card-header">Em 2015, com o lançamento do ES6, muitas mudanças começaram a acontecer no
+                JavaScript. Quais foram as mudanças abaixo?</h3>
+            <!-- Accordion -->
+            <div class="accordion accordion-flush" id="accordionPanelsStayOpenExample">
+                <!-- First item - Default Parameters -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                            aria-controls="panelsStayOpen-collapseOne">
+                            Default Parameters
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+                        aria-labelledby="panelsStayOpen-headingOne" data-bs-parent="#accordionPanelsStayOpenExample">
+                        <div class="accordion-body">
+                            <p class="card-text">Hoje em dia, funções possem ser definidas com valores padrões de forma
+                                muito mais fácil graças a implementação dos "default parameters".</p>
+                            <p class="card-text">A declaração desses parâmetros é feita no próprio campo de
+                                parâmetros,com uma atribuição realizada na hora da declaração, como visto a seguir:</p>
+
+
+                            <code>
+                                <pre>// Sintaxe básica
+
+function multiply(a, b = 2) {
+return a * b;
+}
+
+multiply(5); // 10
+
+// Default parameters também funcionam com "later default parameters", ou seja, parâmetros que são lidos depois (mais para direita)
+
+function foo (num = 1, multi = multiply(num)) {
+return [num, multi];
+}
+foo(); // [1, 2]
+foo(6); // [6, 12]</pre>
+                            </code>
+
+                            <button class="btn btn-primary" type="button" onclick="multiply(5)">multiply(5)</button>
+                            <button class="btn btn-primary" type="button" onclick="multiply(5,6)">multiply(5,6)</button>
+                            <button class="btn btn-primary" type="button" onclick="foo()">foo( )</button>
+                            <button class="btn btn-primary" type="button" onclick="foo(6)">foo(6)</button>
+
+                            <!-- Default Parameters -> Old & New examples -->
+                            <p class="card-text mt-4">Mas, para exemplificar como essa mudança impactou a criação de
+                                funções com parâmetros padrões, vamos ver o seguinte exemplo:
+                            </p>
+
+                            <!-- What we want -->
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#default-parameters-1st-collapse" aria-expanded="false"
+                                aria-controls="default-parameters-1st-collapse">
+                                O que queremos
+                            </button>
+                            <div class="collapse  mt-3" id="default-parameters-1st-collapse">
+                                <code>
+                                    <pre>
+// Queremos um elemento &lt;p&gt;, com um conteúdo definido e 2 classes atribuídas. Para isso, utilizaremos a função
+                                    
+createElement('p', {
+    content: 'Um texto super único',
+    classNames: ['texto-muito-especial', 'muito-grande']
+});
+
+// Retorna &lt;p class="texto-muito-especial muito-grande"&gt;Um texto super único&lt;/p&gt;
+
+// Para esse método ser mais útil, ele deve sempre retornar um elemento padrão quando qualquer um dos argumentos não for passado.
+
+createElement(); 
+
+// Retorna &lt;div class="texto-modulo padrao"&gt;Padrãozinho&lt;/div&gt;
+                            </pre></code>
+                                <hr>
+                            </div>
+                            <p class="card-text mt-3">Antes de existirem os default parameters, uma possível
+                                implementação
+                                dessa função era a seguinte:</p>
+
+                            <!-- Old example -->
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#default-parameters-2nd-collapse" aria-expanded="false"
+                                aria-controls="default-parameters-2nd-collapse">
+                                Exemplo antigo
+                            </button>
+                            <div class="collapse  mt-3" id="default-parameters-2nd-collapse">
+                                <code>
+                                    <pre>
+// Sem os default parameters, fica desnecessariamente grande
+
+function createElement (tag, config) {
+    tag = tag || 'div';
+    config = config || {};
+
+    const element = document.createElement(tag);
+    const content = config.content || 'Padrãozinho';
+    const text = document.createTextNode(content);
+    let classNames = config.classNames;
+
+    if (classNames === undefined) {
+    classNames = ['modulo-texto', 'padrao'];
+    }
+
+    element.classList.add(...classNames);
+    element.appendChild(text);
+
+    return element;
+}
+                            </pre></code>
+
+                                <button class="btn btn-primary mb-3" type="button"
+                                    onclick="beforeDefaultParameters()">createElement( )</button>
+
+                                <button class="btn btn-primary text-start mb-3" type="button" class="text-start"
+                                    onclick="beforeDefaultParameters('p', {
+                                content: 'Um texto super único',
+                                classNames: ['texto-muito-especial', 'muito-grande']
+                              }
+                            )">createElement( 'p', {<br>
+                                    content: 'Um texto super único',
+                                    <br> classNames: ['texto-muito-especial', 'muito-grande']<br>
+                                    })</button>
+                                <hr>
+                            </div>
+
+                            <p class="card-text  mt-4">E assim fica a mesma função com os default parameters:</p>
+
+                            <!-- New example -->
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#default-parameters-3rd-collapse" aria-expanded="false"
+                                aria-controls="default-parameters-3rd-collapse">
+                                Após o ES6 - Novo exemplo
+                            </button>
+                            <div class="collapse mt-3" id="default-parameters-3rd-collapse">
+                                <code>
+                                    <pre>
+function createElement (tag = 'div', {
+    content = 'Padrãozinho',
+    classNames = ['modulo-texto', 'especial']
+} = {}) {
+    const element = document.createElement(tag);
+    const text = document.createTextNode(content);
+
+    element.classList.add(...classNames);
+    element.appendChild(text);
+
+    return element;
+}
+                            </pre></code>
+
+                                <button class="btn btn-primary mb-3" type="button"
+                                    onclick="beforeDefaultParameters()">createElement( )</button>
+
+                                <button class="btn btn-primary text-start mb-3" type="button" class="text-start"
+                                    onclick="beforeDefaultParameters('p', {
+                                    content: 'Um texto super único',
+                                    classNames: ['texto-muito-especial', 'muito-grande']
+                                  }
+                                )">createElement( 'p', {<br>
+                                    content: 'Um texto super único',
+                                    <br> classNames: ['texto-muito-especial', 'muito-grande']<br>
+                                    })</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Second item - Template strings -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                            aria-controls="panelsStayOpen-collapseTwo">
+                            Template Strings
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+                        aria-labelledby="panelsStayOpen-headingTwo" data-bs-parent="#accordionPanelsStayOpenExample">
+                        <div class="accordion-body">
+                            <p class="card-text">Sabe aquela ideia de de ter que digitar <code>console.log("Oi" + nome +
+                                    "! Como você está?")</code> utilizando o símbolo "+" para concactenar os argumentos
+                                passados?</p>
+                            <p class="card-text">O ES6 resolveu muito esse problema, trazendo as template strings pro
+                                Javascript.</p>
+                            <p class="card-text">A sintaxe das template strings é a seguinte:</p>
+                            <p>
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#template-string-sintaxe-basica" aria-expanded="false"
+                                    aria-controls="template-string-sintaxe-basica">
+                                    Sintaxe básica
+                                </button>
+                            </p>
+                            <div class="collapse" id="template-string-sintaxe-basica">
+                                <div class="card card-body">
+                                    Para gerar uma string:
+                                    <code>
+                                        <pre>
+`string text`
+</pre></code>
+
+                                    Para gerar uma string de múltiplas linhas:
+                                    <code>
+                                        <pre>
+`string text line 1
+string text line 2`
+</pre></code>
+
+                                    Interpolando valores diretamente dentro da string:
+                                    <code>
+                                        <pre>
+`string text ${expression} string text`
+</pre></code>
+
+                                    Templates reutilizáveis:
+                                    <code>
+                                        <pre class="mb-0">
+const templateFn = expression => `string text ${expression} string text`;</pre></code>
+                                </div>
+                            </div>
+                            <p>Porém, ainda existe uma outra feature bacana das template strings, que são chamadas de
+                                "tagged template literals", que tem a capacidade de chamar funções (chamadas de tag
+                                functions). Veremos a seguir:</p>
+
+                            <p>
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#template-string-tagged-functions" aria-expanded="false"
+                                    aria-controls="template-string-tagged-functions">
+                                    Tagged functions
+                                </button>
+                            </p>
+                            <div class="collapse" id="template-string-tagged-functions">
+                                <div class="card card-body">
+                                    <p class="card-text">Vamos supor a função mensagemExemplo():</p>
+                                    <code>
+                                        <pre>
+function mensagemExemplo(mensagemParte1, nome, mensagemParte2) {
+    console.log(`${mensagemParte1} ${nome}! ${mensagemParte2}`)
+}</pre></code>
+                                    <button class="btn btn-primary" type="button"
+                                        onclick="mensagemExemplo('Olá', 'Caio', 'Tudo bom?')">mensagemExemplo('Olá',
+                                        'Caio', '! Tudo bom?')</button>
+                                    <p class="card-text mt-3">Ela poderia ser chamada em modo de tagged functions
+                                        utilizando as template strings na seguinte sintaxe:</p>
+                                    <code>
+                                        <pre>
+function exemploMelhorado(strings, ...expressoes) {
+    return expressoes.reduce((acumulator, expressao, index) => {
+        return acumulator + expressao + strings[index + 1]
+    }, strings[0])}</pre></code>
+                                    <p class="card-text">Executando a função:</p>
+                                    <code>
+                                        <pre>
+nome = "Caio"
+let mensagemMelhoradaFinal = exemploMelhorado`Olá ${nome}! Tudo bem?`
+
+console.log(mensagemMelhoradaFinal)
+                                    </pre></code>
+
+                                    <button class="btn btn-primary" type="button"
+                                        onclick="executarExemploMelhorado()">console.log(mensagemMelhoradaFinal)</button>
+
+                                    <p class="card-text mt-3">E como isso acontece? Vamos modificar a função e pedir pra
+                                        ele
+                                        retornar apenas os argumentos (que são arrays):</p>
+
+                                    <button class="btn btn-primary mb-3" type="button"
+                                        onclick="executarExemploMelhoradoApenasStrings()">Apenas strings</button>
+                                    <button class="btn btn-primary" type="button"
+                                        onclick="executarExemploMelhoradoApenasExpressoes()">Apenas expressoes</button>
+                                    <p class="card-text mt-3">Resultado: é claro que parece que mais trabalhoso o
+                                        exemplo melhorado, mas imagina o caso de uma função com muitos argumentos? Sem
+                                        falar na flexibilidade dada ao código, já que agora é possível manipular os
+                                        itens passados da forma que quiser.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Third item - Destructuring -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                            aria-controls="panelsStayOpen-collapseThree">
+                            Destructuring
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
+                        aria-labelledby="panelsStayOpen-headingThree" data-bs-parent="#accordionPanelsStayOpenExample">
+                        <div class="accordion-body">
+                            <p class="card-text">Destructring é a técnica implementada no ES6 que possibilita a extração
+                                de dados de arrays ou objetos em diversas variáveis.</p>
+                            <!-- Destructuring arrays -->
+                            <p>
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#destructuringArrays" aria-expanded="false"
+                                    aria-controls="destructuringArrays">
+                                    Destructuring em Arrays
+                                </button>
+                            </p>
+                            <div class="collapse" id="destructuringArrays">
+                                <div class="card card-body">
+                                    <p class="card-text">É possível, por exemplo, declarar arrays e objetos utilizando o
+                                        <span class="fst-italic">rest operator</span> da seguinte maneira:</p>
+                                    <code>
+                                        <pre>
+let a, b, rest;
+[a, b] = [10, 20];
+console.log(a); // 10
+console.log(b); // 20
+
+[a, b, ...rest] = [10, 20, 30, 40, 50];
+console.log(a); // 10
+console.log(b); // 20
+console.log(rest); // [30, 40, 50]
+
+({ a, b } = { a: 10, b: 20 });
+console.log(a); // 10
+console.log(b); // 20
+
+// Stage 4(finished) proposal
+({a, b, ...rest} = {a: 10, b: 20, c: 30, d: 40});
+console.log(a); // 10
+console.log(b); // 20
+console.log(rest); // {c: 30, d: 40}</pre></code>
+                                    <p class="card-text">Repare que é possível desestruturar (destructure) o array para
+                                        os
+                                        elementos do lado esquerdo da atribuição. </p>
+                                    <p class="card-text"></p>Outro exemplo que mostra bem o que acontece:</p>
+                                    <code>
+                                        <pre>
+const x = [1, 2, 3, 4, 5];
+const [y, z] = x;
+console.log(y); // 1
+console.log(z); // 2</pre></code>
+                                    <p class="card-text">Porém é necessário ficar atento ao fato de que, se o elemento
+                                        passado
+                                        na atribuição do lado direito tiver seu comprimento (length) menor que o
+                                        elemento do
+                                        lado esqurdo, apenas serão passados os valores existentes, enquanto os outros
+                                        valores
+                                        serão redefinidos para "undefined":</p>
+                                    <code>
+                                        <pre>
+const foo = ['one', 'two'];
+
+const [red, yellow, green, blue] = foo;
+console.log(red); // "one"
+console.log(yellow); // "two"
+console.log(green); // undefined
+console.log(blue);  //undefined</pre></code>
+                                    <p class="card-text">Também é possível trocar variáveis de lugar sem precisar de uma
+                                        temporária!</p>
+                                    <code>
+                                        <pre>
+let a = 1;
+let b = 3;
+
+[a, b] = [b, a];
+console.log(a); // 3
+console.log(b); // 1
+</pre></code>
+                                </div>
+                            </div>
+                            <p>
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#destructuringObjetcs" aria-expanded="false"
+                                    aria-controls="destructuringObjetcs">
+                                    Destructuring em Objetos
+                                </button>
+                            </p>
+                            <div class="collapse" id="destructuringObjetcs">
+                                <div class="card card-body">
+                                    <p class="card-text">A forma mais fácil de observar destructuring básico de objetos
+                                        pode ser vista no seguinte exemplo, que funciona de forma parecida com o Array:
+                                    </p>
+                                    <code>
+                                        <pre>
+const user = {
+id: 42,
+isVerified: true
+};
+
+const {id, isVerified} = user;
+
+console.log(id); // 42
+console.log(isVerified); // true</pre></code>
+                                    <p class="card-text">Porém, uma das funcionalidades mais interessantes do
+                                        destructuring em objetos é a possibilidade de deixar o código mais enxuto e
+                                        ainda assim, bastante legível (talvez até mais). Veremos o exemplo.</p>
+                                    <p class="card-text">Considere o seguinte objeto com várias informações sobre o
+                                        usuário.</p>
+                                    <code>
+                                        <pre>
+const user = {
+    id: 42,
+    displayName: 'lemoscaio',
+    fullName: {
+    firstName: 'Caio',
+    lastName: 'Lemos'
+    }
+};
+</pre></code>
+                                    <p class="card-text">Sem a possibilidade de object destructuring, caso precisássemos
+                                        de uma função que retorna o "id" do usuário, precisamos de algo como:</p>
+                                    <code>
+                                        <pre>
+function userId(user) {
+    return user.id;
+}
+
+console.log(userId(user)); // 42
+</pre></code>
+                                    <p class="text-card">Porém, a partir do ES6, é possível trabalhar com a seguinte
+                                        estrutura, deixando implícito o objeto na função:</p>
+                                    <code>
+                                        <pre>
+function userId({id}) {
+    return id;
+}
+
+console.log(userId(user)); // 42
+</pre></code>
+                                    <p class="card-text">Também é possível atribuir nomes para as propriedades, que
+                                        funcionam como se fossem variáveis dentro da função, usar destructuring em
+                                        objetos aninhados e até mesmo utilizar a funcionalidade para declarar default
+                                        parameters, como visto no próprio subtópico. </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a class="btn btn-primary me-3 m-3" href="topico3.html" role="button">Próximo tópico</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/topico2.js"></script>
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

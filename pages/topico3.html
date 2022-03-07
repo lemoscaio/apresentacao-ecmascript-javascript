@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Strict Mode</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-light bg-light mb-5">
+            <div class="container-fluid  justify-content-center">
+                <a class="navbar-brand text-center fw-bolder" href="index.html">ECMAScript e JavaScript</a>
+            </div>
+        </nav>
+    </header>
+    <main class="container">
+        <div class="card mx-auto mb-5" style="max-width: 60rem">
+            <h3 class="card-header">O que é strict mode?</h3>
+            <div class="card-body">
+                <h5 class="card-title">Já aconteceu da sua função não funcionar e você nem sequer saber o motivo?
+                    Provavelmente o strict mode resolveria esse problema</h5>
+                <p class="card-text">Diversos erros podem acontecer ao programar, porém nem todos são evidenciados no
+                    Javascript. Alguns erros nem sequer são tratados como erros e funcionam (de uma forma não correta do
+                    ponto de vista de boas práticas)</p>
+                <p class="card-text">Com o ECMAScript 5, foi introduzido o "strict mode", um modo que, ao ser declarado,
+                    basicamente força o Javascript a não permitir certos comportamentos, acusar erros e parar a execução
+                    do código.</p>
+                <h6 class="card-title">A sintaxe do strict mode é simples, base utilizar "use strict" no código. O uso
+                    pode ser tanto dentro da função (funcionará apenas na função), quanto fora (funcionará no código
+                    inteiro).</h6>
+                <p class="card-text">Vamos ao exemplo:</p>
+                <code>
+                    <pre>
+function ola() {
+    let nome = "Caio";
+    console.log("Olá, " + nome)
+}</pre></code>
+                <button onclick="ola()" class="btn btn-primary mb-3">ola( )</button>
+                <p class="card-text">Até aí, nada demais. Mas e se removermos a declaração da variável?</p>
+                <code>
+                    <pre>
+function olaSemStrict() {
+    nomeGlobal = "Caio";
+    console.log("Olá, " + nomeGlobal)
+}</pre></code>
+                <button onclick="console.log(window.nomeGlobal)"
+                    class="btn btn-primary mb-3">console.log(window.nomeGlobal)</button>
+                <button onclick="olaSemStrict()" class="btn btn-primary mb-3">olaSemStrict( )</button>
+                <button onclick="console.log(nomeGlobal)" class="btn btn-primary mb-3">console.log(nomeGlobal)</button>
+                <button onclick="console.log(window.nomeGlobal)"
+                    class="btn btn-primary mb-3">console.log(window.nome)</button>
+                <p class="card-text">Pendurar variáveis no objeto Window não é algo recomendável. Por isso, o strict
+                    mode pode ser de grande ajuda.</p>
+                <code>
+                    <pre>
+function olaComStrict() {
+    "use strict"
+    nomeStrict = "Caio";
+    console.log("Olá, " + nomeStrict)
+}</pre></code>
+                <button onclick="console.log(window.nomeStrict)"
+                    class="btn btn-primary mb-3">console.log(window.nomeStrict)</button>
+                <button onclick="olaComStrict()" class="btn btn-primary mb-3">olaComStrict( )</button>
+                <button onclick="console.log(nomeStrict)" class="btn btn-primary mb-3">console.log(nomeStrict)</button>
+                <button onclick="console.log(window.nomeStrict)"
+                    class="btn btn-primary mb-3">console.log(window.nomeStrict)</button>
+                <p class="card-text">O Javascript não deixa mais atribuir valor a uma variável que ainda não foi
+                    declarada<p>
+                        <h6 class="card-title">E o caso de erros silenciosos?</h6>
+                        <p class="card-text">Vamos ao seguinte código:</p>
+                        <code>
+                            <pre>
+class Aluno {
+    get nota() {
+        return 6;
+    }
+}
+
+let aluno
+
+function criarInstanciaAluno() {
+    aluno = new Aluno()
+    console.log(aluno)
+}
+
+function atribuirNotaAluno() {
+    aluno.nota = 10
+}
+
+function mostrarNotaAluno() {    
+    console.log(aluno)
+}
+
+function atribuirNotaAlunoComStrict() {
+    'use strict'
+    aluno.nota = 10
+    console.log(aluno.nota)
+}</pre></code>
+                        <p class="card-text">Caso você queira atribuir uma nota diferente para uma instância de uma
+                            classe que apenas tem um getter, o JavaScript não deixa.</p>
+                        <button onclick="criarInstanciaAluno()" class="btn btn-primary mb-3">criarInstanciaAluno(
+                            )</button>
+                        <button onclick="atribuirNotaAluno()" class="btn btn-primary mb-3">atribuirNotaAluno( )</button>
+                        <button onclick="mostrarNotaAluno()" class="btn btn-primary mb-3">mostrarNotaAluno( )</button>
+                        <button onclick="atribuirNotaAlunoComStrict()"
+                            class="btn btn-primary mb-3">atribuirNotaAlunoComStrict( )</button>
+                        <h6 class="card-title mb-3">Um último exemplo... E se tentarmos apagar um objeto que não pode
+                            ser
+                            delatado? Que tal o Window.document (seria um desespero).</h6>
+                        <code>
+                            <pre>
+function tentarMatarDevDoCoracao() {
+    delete window.document
+}
+
+function verificarSeAindaExiste() {
+    console.log(window.document)
+}
+
+function naoMatarDevDoCoracao() {
+    'use strict'
+    delete window.document
+}</pre></code>
+                        <button onclick="tentarMatarDevDoCoracao()"
+                            class="btn btn-primary mb-3">tentarMatarDevDoCoracao( )</button>
+                        <button onclick="verificarSeAindaExiste()" class="btn btn-primary mb-3">verificarSeAindaExiste(
+                            )</button>
+                        <button onclick="naoMatarDevDoCoracao()" class="btn btn-primary mb-3">naoMatarDevDoCoracao(
+                            )</button>
+                        <p class="card-text">Vemos que com o strict mode, podemos verificar problemas que, sem ele,
+                            passariam despercebidos e poderiam ser prejudiciais para o bom funcionamento do código.</p>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a class="btn btn-primary me-3 m-3" href="topico4.html" role="button">Próximo tópico</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/topico3.js"></script>
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

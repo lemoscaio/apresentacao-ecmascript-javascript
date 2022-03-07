@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>for x forEach x for...of</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-light bg-light mb-5">
+            <div class="container-fluid  justify-content-center">
+                <a class="navbar-brand text-center fw-bolder" href="index.html">ECMAScript e JavaScript</a>
+            </div>
+        </nav>
+    </header>
+    <main class="container">
+        <div class="card mx-auto mb-5" style="max-width: 60rem">
+            <h3 class="card-header">Qual a diferença entre <code>for</code>, <code>forEach</code> e
+                <code>for...of</code>?</h3>
+            <div class="card-body">
+                <p class="card-text">Existem inúmeras maneiras de fazer laços em arrays e objetos no Javascript. Vamos
+                    ver algumas diferenças entre elas:</p>
+                <h5 class="card-title">Diferenças de sintaxe</h5>
+                <h6 class="card-title">O que acontece com as construções <code>for</code> e <code>for... in</code>?</h6>
+                <p class="card-text">Esses loops fornecem acesso apenas ao índice do array, e não ao elemento em si.
+                    Vejamos os exemlos:</p>
+                <code>
+                    <pre>
+function loopComFor() {
+    let numeros = [10, 20, 30, 40, 50]
+
+    for (let i = 0; i < numeros.length; i++) {
+        console.log(i) // 0, 1, 2, 3, 4
+    }
+}</pre></code>
+                <button onclick="loopComFor()" class="btn btn-primary mb-3">loopComFor( )</button>
+                <code>
+                    <pre>
+function loopComForIn() {
+    let numeros = [10, 20, 30, 40, 50]
+
+    for (const numero in numeros) {
+        console.log(numero) // 0, 1, 2, 3, 4
+    }
+}</pre></code>
+                <button onclick="loopComForIn()" class="btn btn-primary mb-3">loopComForIn( )</button>
+                <p class="card-text">Apesar de ter dado o nome "numero", um nome mais adequado seria "índice", já que o
+                    valor retornado não é o elemento.</p>
+                <h6 class="card-title">O que acontece com as construções <code>forEach</code> e <code>for... of</code>?
+                </h6>
+                <p class="card-text">Ao contrário das outras, essas te dão acesso ao próprio elemento do array. Com o
+                    forEach é até mesmo possível acessar também o índice, pasando um segundo parâmetro.</p>
+                <code>
+                    <pre>
+function loopComForIn() {
+    let numeros = [10, 20, 30, 40, 50]
+
+    for (const numero of numeros) {
+        console.log(numero) // 10, 20, 30, 40, 50
+    }
+}</pre></code>
+                <button onclick="loopComForOf()" class="btn btn-primary mb-3">loopComForOf( )</button>
+                <code>
+                    <pre>
+function loopComForEach() {
+    let numeros = [10, 20, 30, 40, 50]
+
+    numeros.forEach((numero, indice) => {
+    console.log("Numero " + numero + " na posição " + indice)
+    })
+}
+</pre></code>
+                <button onclick="loopComForEach()" class="btn btn-primary mb-3">loopComForEach( )</button>
+
+                <h6 class="card-title">Porém, o que acontece caso o Array tenha uma chave não-numérica?</h6>
+                <p class="card-tex">Considere o exemplo:</p>
+                <code>
+                    <pre>
+const arr = ['a', 'b', 'c'];
+arr.test = 'bad';</pre></code>
+                <p class="card-text">Esse código retorna um array com a seguinte estrutura:</p>
+                <code>
+                    <pre>
+['a', 'b', 'c', test: 'bad'] //arr.length continua sendo 3</pre></code>
+                <button onclick="logarArr()" class="btn btn-primary mb-3">logarArr( )</button>
+                <button onclick="logarArrLength()" class="btn btn-primary mb-3">logarArrLength( )</button>
+                <button onclick="logarArrNoIndice(2)" class="btn btn-primary mb-3">logarArrNoIndice(2)</button>
+                <button onclick="logarArrNoIndice(3)" class="btn btn-primary mb-3">logarArrNoIndice(3)</button>
+                <p class="card-text">Nesse caso, o loop <code>for... in</code> é o único dos 4 que não ignora
+                    corretamente a chave não-numérica e, por isso, geralmente deve ser evitado ao percorrer um Array.
+                </p>
+                <h6 class="card-title">E se o elemento tiver espaços vazios?</h6>
+                <p class="card-text">Considerando o array com espaço vazio:</p>
+                <code>
+                    <pre>
+const arrayComVazio = ['a',, 'c'];
+
+arrayComVazio.length; // 3</pre></code>
+                <p class="card-text">Vamos a mais um exemplo:</p>
+                <code>
+                    <pre>
+// Mostra "a, undefined, c"
+for (let i = 0; i < arrayComVazio.length; ++i) {
+    console.log(arr[i]);
+}
+
+// Mostra "a, c"
+arrayComVazio.forEach(v => console.log(v));
+
+// Mostra "a, c"
+for (let i in arrayComVazio) {
+    console.log(arrayComVazio[i]);
+}
+
+// Mostra "a, undefined, c"
+for (const v of arrayComVazio) {
+    console.log(v);
+}</pre></code>
+                <button onclick="testeComFor()" class="btn btn-primary mb-3">testeComFor( )</button>
+                <button onclick="testeComForEach()" class="btn btn-primary mb-3">testeComForEach( )</button>
+                <button onclick="testeComForIn()" class="btn btn-primary mb-3">testeComForIn( )</button>
+                <button onclick="testeComForOf()" class="btn btn-primary mb-3">testeComForOf( )</button>
+                <p class="card-text">Dos 4, apenas o forEach e o for...in pulam o elemento vazio.</p>
+                <p class="card-text">PS: Apesar de, por conta dos problemas listados dos outros loops, o o loop forEach parecer ser "o melhor", lembre-se que cada um possui sua aplicação. O loop forEach, por exemplo, não se dá muito bem com funções assíncronas.</p>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a class="btn btn-primary me-3 m-3" href="../index.html" role="button">Voltar para o início</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/topico6.js"></script>
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Hoisting</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-light bg-light mb-5">
+            <div class="container-fluid  justify-content-center">
+                <a class="navbar-brand text-center fw-bolder" href="index.html">ECMAScript e JavaScript</a>
+            </div>
+        </nav>
+    </header>
+    <main class="container">
+        <div class="card mx-auto mb-5" style="max-width: 60rem">
+            <h3 class="card-header">O que é Hoisting?</h3>
+            <div class="card-body">
+                <p class="card-text">Hoisting é o evento do Javascript no qual uma variável é "içada" até o topo do seu
+                    escopo (no caso, da função).</p>
+                <p class="card-text">Veremos o exemplo:</p>
+                <code>
+                    <pre>
+//Como é escrito:
+
+var x = 2; 
+//global  
+function funcao() { 
+    //local
+    console.log(x); 
+    var x = 3;  
+    console.log(x);
+} funcao();
+                    </pre></code>
+                <button onclick="funcao()" class="btn btn-primary mb-3">funcao( )</button>
+
+                <p class="card-text">Por que esse comportamento? Por conta do hoisting. Apesar de ser escrito daquela
+                    maneira, a declaração da variável (mas não a atribuição do seu valor) sobe para o topo da função. A
+                    seguir, é mostrada uma representação de como o Javascript lê essa mesma função:</p>
+                <code>
+                    <pre>
+var x = 2; 
+//global 
+
+function funcao() {
+    //variável "levantada" 
+    var x;  
+    console.log(x); //undefined
+    x = 3; 
+    console.log(x); //3 
+}</pre></code>
+<p class="card-text">Por isso que o primeiro log é dado como undefined! Vamos entender escopo um pouco melhor no próximo tópico.</p>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a class="btn btn-primary me-3 m-3" href="topico5.html" role="button">Próximo tópico</a>
+            </div>
+        </div>
+
+
+        <script src="../js/topico4.js"></script>
+        <!-- Bootstrap Bundle -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+        </script>
+</body>
+
+</html>
